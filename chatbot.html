@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Support - BlockCert</title>
+    <link rel="stylesheet" href="css/theme.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .chat-container {
+            max-width: 800px;
+            margin: 40px auto;
+            height: 70vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-window {
+            flex-grow: 1;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 30px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <nav class="navbar"></nav>
+
+        <div class="chat-container">
+            <div class="chat-window" id="chatWindow">
+                <div class="message bot-msg">
+                    Hello! I'm your BlockCert assistant. Ask me about certificates, verification, or how to use the
+                    platform.
+                </div>
+            </div>
+
+            <form id="chatForm" class="input-area">
+                <input type="text" id="userInput" placeholder="Type your question..." autocomplete="off">
+                <button type="submit" class="btn btn-primary" style="margin-bottom: 10px;">Send</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/themeToggle.js"></script>
+    <script src="js/chatbot.js"></script>
+</body>
+
+</html>

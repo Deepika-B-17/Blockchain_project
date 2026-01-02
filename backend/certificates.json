@@ -1,0 +1,24 @@
+{
+    "333e89f6d5": {
+        "data": {
+            "student_name": "Diana",
+            "course": "Python",
+            "date": "2026-01-22",
+            "issuer": "City College"
+        },
+        "hash": "333e89f6d521a57ae19fcfa7dd75e8eb328185420b55f49325f3b7051abb56d1",
+        "tx_hash": "0xc720572c74f490863b94e2f89c3a1e652e974d62d08ad9179768109165ac6f8d",
+        "valid": true
+    },
+    "de3a545167": {
+        "data": {
+            "student_name": "",
+            "course": "",
+            "date": "",
+            "issuer": "City College"
+        },
+        "hash": "de3a5451674d294cc1554a5976c1f4698a65511d15ee17266206d2585acff568",
+        "tx_hash": "0x8488cef2984b866016683c3d83e8cfc7c0b9504d45433a2a68d0e6351a9e0e24",
+        "valid": true
+    }
+}
