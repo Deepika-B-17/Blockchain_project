@@ -227,6 +227,21 @@
     <!-- Navbar -->
     <nav class="navbar container"></nav>
 
+    <!-- Mobile Access Helper Banner -->
+    <div id="mobileHelper"
+        style="display: none; background: #fffbeb; border: 1px solid #fef3c7; color: #92400e; padding: 15px; margin-bottom: 20px; border-radius: 8px; font-size: 0.95rem; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.05); line-height: 1.5;">
+        <i class="fas fa-exclamation-triangle" style="color: #d97706; margin-right: 8px;"></i>
+        <strong>QR Scanning Issue?</strong> If you use <code>localhost</code>, the QR code won't work on your phone.<br>
+        To test on mobile: Use your Laptop's IP (e.g. <code>http://192.168.x.x:8000/issue.html</code>) to access the
+        site on your laptop first.
+    </div>
+
+    <script>
+        if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+            document.getElementById('mobileHelper').style.display = 'block';
+        }
+    </script>
+
     <!-- Main Editor -->
     <div class="editor-container">
         <!-- Sidebar -->
@@ -267,6 +282,10 @@
                     <div class="control-group">
                         <label>Background Color</label>
                         <input type="color" id="bgColor" value="#ffffff" style="height: 40px;">
+                    </div>
+                    <div class="control-group">
+                        <label>Background Opacity</label>
+                        <input type="range" id="bgOpacity" min="0" max="1" step="0.1" value="1">
                     </div>
                     <div class="control-group">
                         <label>Background Image</label>
@@ -325,8 +344,19 @@
             <!-- Tab Content: Visuals -->
             <div id="tab-visuals" class="tab-content">
                 <div class="control-group">
-                    <label>Signature (Image)</label>
-                    <input type="file" id="signUpload" accept="image/*">
+                    <label>Signatures</label>
+                    <div id="signaturesContainer">
+                        <!-- Signature inputs will be added here -->
+                        <div class="signature-entry"
+                            style="margin-bottom: 15px; padding: 10px; border: 1px dashed var(--border-color); border-radius: 8px;">
+                            <input type="file" class="sign-upload-input" accept="image/*" style="margin-bottom: 5px;">
+                            <input type="text" class="sign-label-input"
+                                placeholder="Authorized Signature (e.g. Director)" value="Authorized Signature">
+                        </div>
+                    </div>
+                    <button type="button" id="addSignBtn" class="btn btn-outline" style="width: 100%; margin-top: 5px;">
+                        <i class="fas fa-plus"></i> Add Another Signature
+                    </button>
                 </div>
                 <div class="control-group">
                     <label>Seal / Stamp (Image)</label>
@@ -344,7 +374,8 @@
             </div>
 
             <div style="padding: 20px;">
-                <button id="issueBtn" class="btn btn-primary" style="width: 100%; padding: 15px; font-size: 1.1rem;">
+                <button id="issueBtn" type="button" class="btn btn-primary"
+                    style="width: 100%; padding: 15px; font-size: 1.1rem;">
                     <i class="fas fa-certificate"></i> Issue Certificate
                 </button>
                 <div id="statusMsg" style="margin-top: 10px; text-align: center; font-size: 0.9rem;"></div>
@@ -366,10 +397,13 @@
                     <p>Issued on: <span id="pDate">--/--/----</span></p>
 
                     <div class="cert-footer">
-                        <div class="cert-sign-area">
-                            <img id="pSign" class="sign-img" src="" style="display: none;">
-                            <div style="border-top: 1px solid #333; width: 150px; margin-top: 10px;">Authorized
-                                Signature</div>
+                        <div id="pSignatures" style="display: flex; gap: 40px; justify-content: center; flex: 1;">
+                            <!-- Dynamic signatures will appear here -->
+                            <div class="cert-sign-area">
+                                <img class="sign-img" src="" style="display: none;">
+                                <div style="border-top: 1px solid #333; width: 150px; margin-top: 10px;">Authorized
+                                    Signature</div>
+                            </div>
                         </div>
                         <div class="cert-seal-area">
                             <img id="pSeal" class="seal-img" src="" style="display: none;">
@@ -394,6 +428,9 @@
                 <p><strong>Certificate ID:</strong> <span id="resId"></span></p>
                 <p><strong>Transaction Hash:</strong> <span id="resTx"
                         style="font-size: 0.8em; font-family: monospace;"></span></p>
+                <div id="modalQR" style="text-align: center; margin: 15px 0;">
+                    <!-- QR Code for the specific certificate will appear here -->
+                </div>
                 <p><strong>Status:</strong> <span class="badge"
                         style="background: var(--success); color: white; padding: 2px 8px; border-radius: 4px;">Mined on
                         Chain</span></p>
@@ -411,8 +448,8 @@
                 </div>
             </div>
 
-            <button class="btn btn-outline" onclick="document.getElementById('resultModal').style.display='none'"
-                style="margin-top: 10px; width: 100%;">Close Editor</button>
+            <button class="btn btn-outline" onclick="clearResultState()" style="margin-top: 10px; width: 100%;">Close
+                Editor</button>
         </div>
     </div>
 

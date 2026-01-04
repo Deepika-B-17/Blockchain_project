@@ -1,0 +1,14 @@
+fastapi
+uvicorn
+web3
+pyjwt
+qrcode
+Pillow
+python-multipart
+mnemonic
+langchain-groq
+python-dotenv
+langchain-community
+langchain-classic
+bcrypt
+pyotp
